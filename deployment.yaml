@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: randomapi-container #-> Give your container name Ex: java-1
-        image: saikumar2910/dockerdemo:latest #-> Give your dockerhub image name basically with your username/app:1.0
+        image: saikumar2910/randomapi:latest #-> Give your dockerhub image name basically with your username/app:1.0
         ports:
         - containerPort: 80 #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
        

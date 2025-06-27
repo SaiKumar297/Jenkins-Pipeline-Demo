@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Random Person Generator</title>
+</head>
+<body>
+    <h1>Random Person Generator</h1>
+    <button onclick="getRandomPerson()">Get Random Person</button>
+    <div id="personDisplay"></div>
+
+    <script>
+        async function getRandomPerson() {
+            const res = await fetch('/api/random-person');
+            const person = await res.json();
+
+            document.getElementById('personDisplay').innerHTML = `
+                <img src="${person.picture}" alt="Profile Picture"><br>
+                <strong>Name:</strong> ${person.name} <br>
+                <strong>Gender:</strong> ${person.gender} <br>
+                <strong>Age:</strong> ${person.age} <br>
+                <strong>Email:</strong> ${person.email} <br>
+                <strong>Country:</strong> ${person.country}
+            `;
+        }
+    </script>
+</body>
+</html>

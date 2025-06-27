@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sai-ns #-> Give your own namespace with your name Ex: ram-ns
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: randomapi-app #-> Give your deployment name Ex: <your-name-app-name>
+  namespace: sai-ns #-> Give your own namespace with your name
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: randomapi-app-generation #-> Give your app name app: java-1
+  template:
+    metadata:
+      labels:
+        app: randomapi-app-generation #-> Give your app name app: java-1
+    spec:
+      containers:
+      - name: randomapi-container #-> Give your container name Ex: java-1
+        image: saikumar2910/dockerdemo:latest #-> Give your dockerhub image name basically with your username/app:1.0
+        ports:
+        - containerPort: 80 #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
+       
+--- 
+apiVersion: v1
+kind: Service
+metadata:
+  name: sai-ns-randomapi-svc #-> Give your service name Ex: <your-name+app-name-svc
+  namespace: sai-ns #-> Give your own namespace with your name
+spec:
+  selector:
+    app: randomapi-app-generation #-> Give your app name app: java-1
+  ports:
+    - protocol: TCP
+      port: 80 #-> keep the same port for service from pod port as well for best practice.
+      targetPort: 3000  #-> make suer your container port properly ex: 8000 or 3000 depends on the container running.
+  type: LoadBalancer  #LoadBalancer -> For cloud
